@@ -16,13 +16,13 @@
 <table class="sort-<%= @sort %> <%= @direction %>">
   <thead>
   <tr>
-    <th>
+    <th class="<%= "sorted-#{@direction}" if @sort == "title" %>">
       <%= link_to "Title", movies_path(sort: "title", direction: title_direction) %>
     </th>
-    <th>
+    <th class="<%= "sorted-#{@direction}" if @sort == "rating" %>">
       <%= link_to "Rating", movies_path(sort: "rating", direction: rating_direction) %>
     </th>
-    <th>
+    <th class="<%= "sorted-#{@direction}" if @sort == "release_date" %>">
       <%= link_to "Release date", movies_path(sort: "release_date", direction: date_direction) %>
     </th>
   </tr>
@@ -31,9 +31,15 @@
   <tbody>
   <% @movies.each do |movie| %>
     <tr>
-      <td><%= movie.title %></td>
-      <td><%= movie.rating %></td>
-      <td><%= movie.release_date %></td>
+      <td class="<%= "sorted-#{@direction}" if @sort == "title" %>">
+        <%= movie.title %>
+      </td>
+      <td class="<%= "sorted-#{@direction}" if @sort == "rating" %>">
+        <%= movie.rating %>
+      </td>
+      <td class="<%= "sorted-#{@direction}" if @sort == "release_date" %>">
+        <%= movie.release_date %>
+      </td>
     </tr>
   <% end %>
   </tbody>
