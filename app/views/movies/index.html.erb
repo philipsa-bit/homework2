@@ -4,12 +4,27 @@
 
 <h1>Movies</h1>
 
-<table>
+<p>
+  Sorted by <%= @sort.humanize.downcase %>
+  (<%= @direction == "asc" ? "ascending" : "descending" %>)
+</p>
+
+<% title_direction = @sort == "title" && @direction == "asc" ? "desc" : "asc" %>
+<% rating_direction = @sort == "rating" && @direction == "asc" ? "desc" : "asc" %>
+<% date_direction = @sort == "release_date" && @direction == "asc" ? "desc" : "asc" %>
+
+<table class="sort-<%= @sort %> <%= @direction %>">
   <thead>
   <tr>
-    <th>Title</th>
-    <th>Rating</th>
-    <th>Release Date</th>
+    <th>
+      <%= link_to "Title", movies_path(sort: "title", direction: title_direction) %>
+    </th>
+    <th>
+      <%= link_to "Rating", movies_path(sort: "rating", direction: rating_direction) %>
+    </th>
+    <th>
+      <%= link_to "Release date", movies_path(sort: "release_date", direction: date_direction) %>
+    </th>
   </tr>
   </thead>
 
