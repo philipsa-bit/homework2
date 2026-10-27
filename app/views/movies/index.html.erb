@@ -4,13 +4,51 @@
 
 <h1>Movies</h1>
 
-<div id="movies">
+<p>
+  Sorted by <%= @sort.humanize.downcase %>
+  (<%= @direction == "asc" ? "ascending" : "descending" %>)
+</p>
+
+<% title_direction = @sort == "title" && @direction == "asc" ? "desc" : "asc" %>
+<% rating_direction = @sort == "rating" && @direction == "asc" ? "desc" : "asc" %>
+<% date_direction = @sort == "release_date" && @direction == "asc" ? "desc" : "asc" %>
+
+<table class="sort-<%= @sort %> <%= @direction %>">
+  <thead>
+  <tr>
+    <th class="<%= "sorted-#{@direction}" if @sort == "title" %>">
+      <%= link_to "Title", movies_path(sort: "title", direction: title_direction) %>
+    </th>
+    <th class="<%= "sorted-#{@direction}" if @sort == "rating" %>">
+      <%= link_to "Rating", movies_path(sort: "rating", direction: rating_direction) %>
+    </th>
+    <th class="<%= "sorted-#{@direction}" if @sort == "release_date" %>">
+      <%= link_to "Release date", movies_path(sort: "release_date", direction: date_direction) %>
+    </th>
+  </tr>
+  </thead>
+
+  <tbody>
   <% @movies.each do |movie| %>
-    <%= render movie %>
-    <p>
-      <%= link_to "Show this movie", movie %>
-    </p>
+    <tr>
+      <td class="<%= "sorted-#{@direction}" if @sort == "title" %>">
+        <%= movie.title %>
+      </td>
+      <td class="<%= "sorted-#{@direction}" if @sort == "rating" %>">
+        <%= movie.rating %>
+      </td>
+      <td class="<%= "sorted-#{@direction}" if @sort == "release_date" %>">
+        <%= movie.release_date %>
+      </td>
+    </tr>
   <% end %>
-</div>
+  </tbody>
+
+  <tfoot>
+  <tr>
+    <td colspan="3">Movie List</td>
+  </tr>
+  </tfoot>
+</table>
 
 <%= link_to "New movie", new_movie_path %>
